@@ -1,0 +1,73 @@
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "4.2.16"
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
+group 'reromerot.demos'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+ext {
+    serenityVersion = "4.2.16"
+    serenityCucumberVersion = "4.2.16"
+    junitVersion = "5.8.2"
+    assertJVersion = "3.22.0"
+    slf4j = "2.0.0"
+    lombok = "1.18.24"
+    jUnitCoreVersion = "4.13.2"
+}
+
+dependencies {
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: "$rootProject.ext.serenityVersion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay', version: "$rootProject.ext.serenityVersion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-ensure', version: "$rootProject.ext.serenityVersion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: "$rootProject.ext.serenityVersion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay-rest', version: "$rootProject.ext.serenityVersion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: "$rootProject.ext.serenityCucumberVersion"
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$rootProject.ext.junitVersion"
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$rootProject.ext.junitVersion"
+    implementation group: 'org.assertj', name: 'assertj-core', version: "$rootProject.ext.assertJVersion"
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'ch.qos.logback:logback-classic:1.5.13'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: "$rootProject.ext.lombok"
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "$rootProject.ext.lombok"
+    testImplementation group: 'junit', name: 'junit', version: "$rootProject.ext.jUnitCoreVersion"
+   
+}
+
+test {
+    systemProperties System.getProperties()
+    systemProperty "file.encoding", "ISO-8859-1"
+    systemProperty "feature.file.encoding", "ISO-8859-1"
+    systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
+
+    testLogging.showStandardStreams = true
+    finalizedBy(aggregate)
+
+}
+
+serenity {
+    testRoot = "reromerot.demos"
+    requirementsDir = "src/test/resources/features"
+    reports = ["single-page-html"]
+}
+
+wrapper {
+    gradleVersion = "8.8"
+}
