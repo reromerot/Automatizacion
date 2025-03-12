@@ -1,8 +1,8 @@
-# author: Rigoberto Henao,
+# author: reromerot,
 Feature: Buenas prácticas de automatización
   Yo como analista automatizador de pruebas
   Necesito realizar un inicio de sesión
-  Para comprobar enseñar la implementación de buenas prácticas
+  Para enseñar la implementación de buenas prácticas de automatización
 
   Scenario Outline: Login Guru99
     Given "Analista" desea iniciar sesión en la página "<pageName>"
@@ -12,5 +12,5 @@ Feature: Buenas prácticas de automatización
 
     Examples:
       | pageName | userName   | password | msg                    |
-      | guru     | mngr610790 | uqUnegE  | Manger Id : mngr610790 |
+      | guru     | mngr615949 | zYzYtUr  | Manger Id : mngr615949 |
 

@@ -1,4 +1,4 @@
-# author: Rigoberto Henao,
+# author: reromerot,
 Feature: Buenas prácticas de automatización
   Yo como analista automatizador de pruebas
   Necesito realizar un inicio de sesión
